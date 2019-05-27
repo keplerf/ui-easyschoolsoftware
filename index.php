@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="scss/main.css">
 </head>
 <body>
+    <h1>Kepler</h1>
+
+    <?php
+        include("desktop_nav.php")
+    ?>
     
 </body>
 </html>
