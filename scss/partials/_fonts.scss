@@ -1,0 +1,70 @@
+
+h1, .h1{
+  font-family: 'GloberxBold', Arial, Helvetica, sans-serif;
+  font-size: 64px;
+  text-transform: uppercase;
+}
+
+h2, .h2{
+  font-family: 'GloberxBold', Arial, Helvetica, sans-serif;
+  font-size: 44px;
+  text-transform: uppercase;
+}
+
+h3, .h3{
+  font-family: 'GloberxBold', Arial, Helvetica, sans-serif;
+  font-size: 36px;
+  text-transform: uppercase;
+}
+
+h4, .h4{
+  font-family: 'GloberSemiBold', Arial, Helvetica, sans-serif;
+  font-size: 36px;
+  text-transform: uppercase;
+}
+
+h5, .h5{
+  font-family: 'GloberBold', Arial, Helvetica, sans-serif;
+  font-size: 26px;
+  text-transform: uppercase;
+  &.light{
+    font-family: 'GloberSemiBold' !important;
+  }
+  &.regular{
+    font-family: 'GloberRegular', Arial, Helvetica, sans-serif;
+  }
+}
+
+h6, .h6{
+  font-family: 'GloberSemiBold';
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+p, body{
+  font-family: 'GloberRegular', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  margin-bottom: 20px;
+
+}
+
+.small{
+  font-size: 11px;
+}
+
+p{
+  &.body-medium{
+    font-size: 16px;
+    line-height: 28px;
+  }
+  &.body-large{
+    font-size: 22px;
+    line-height: 34px;
+  }
+
+  &.body-small{
+    font-size: 12px;
+    line-height: 1.5;
+  }
+}

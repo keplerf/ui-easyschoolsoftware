@@ -1,0 +1,319 @@
+
+
+@mixin alpha-attribute($attribute, $color, $background) {
+  $percent: alpha($color) * 100%;
+  $opaque: opacify($color, 1);
+  $solid-color: mix($opaque, $background, $percent);
+  #{$attribute}: $solid-color;
+  #{$attribute}: $color;
+}
+
+@mixin alpha-background-color($color, $background) {
+  $percent: alpha($color) * 100%;
+  $opaque: opacify($color, 1);
+  $solid-color: mix($opaque, $background, $percent);
+  background-color: $solid-color;
+  background-color: $color;
+}
+
+@mixin calc($property, $expression) {
+  #{$property}: -moz-calc(#{$expression});
+  #{$property}: -webkit-calc(#{$expression});
+  #{$property}: calc(#{$expression});
+}
+
+
+/* Media Querie */
+
+$tablet-width: 768px;
+$desktop-width: 1024px;
+$mobile-width :576px;
+
+// xs: 0,
+// sm: 576px,
+// md: 768px,
+// lg: 992px,
+// xl: 1200px
+
+
+@mixin mobile {
+	@media (max-width : $mobile-width) {
+		@content;
+	}
+}
+
+@mixin tablet {
+  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
+
+/*============================================================================
+  Flexbox prefix mixins from Bourbon
+    https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/css3/_flex-box.scss
+==============================================================================*/
+@mixin display-flexbox() {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%; // necessary for ie10
+}
+
+@mixin flex-wrap($value: nowrap) {
+  @include prefix(flex-wrap, $value, webkit moz ms spec);
+}
+
+@mixin flex-direction($value) {
+  @include prefix(flex-direction, $value, webkit moz ms spec);
+}
+
+@mixin align-items($value: stretch) {
+  $alt-value: $value;
+
+  @if $value == 'flex-start' {
+    $alt-value: start;
+  } @else if $value == 'flex-end' {
+    $alt-value: end;
+  }
+
+  // sass-lint:disable no-misspelled-properties
+  -ms-flex-align: $alt-value;
+  @include prefix(align-items, $value, webkit moz ms o spec);
+}
+
+@mixin flex($value) {
+  @include prefix(flex, $value, webkit moz ms spec);
+}
+
+@mixin flex-basis($width: auto) {
+  // sass-lint:disable no-misspelled-properties
+  -ms-flex-preferred-size: $width;
+  @include prefix(flex-basis, $width, webkit moz spec);
+}
+
+@mixin align-self($align: auto) {
+  // sass-lint:disable no-misspelled-properties
+  -ms-flex-item-align: $align;
+  @include prefix(align-self, $align, webkit spec);
+}
+
+@mixin align-content($align: center) {
+  @include prefix(align-content, $align, webkit ms spec);
+}
+
+@mixin justify-content($justify: flex-start) {
+  @include prefix(justify-content, $justify, webkit ms spec);
+}
+
+
+
+
+/*================ Media Query Mixin ================*/
+@mixin media-query($media-query) {
+  $breakpoint-found: false;
+
+  @each $breakpoint in $grid-breakpoints {
+    $name: nth($breakpoint, 1);
+    $declaration: nth($breakpoint, 2);
+
+    @if $media-query == $name and $declaration {
+      $breakpoint-found: true;
+
+      @media only screen and #{$declaration} {
+        @content;
+      }
+    }
+  }
+
+  @if $breakpoint-found == false {
+    @warn 'Breakpoint "#{$media-query}" does not exist';
+  }
+}
+
+/*================ Responsive Show/Hide Helper ================*/
+@mixin responsive-display-helper($grid-breakpoint-type: '') {
+  // sass-lint:disable no-important
+  .#{$grid-breakpoint-type}show {
+    display: block !important;
+  }
+
+  .#{$grid-breakpoint-type}hide {
+    display: none !important;
+  }
+}
+
+
+/*================ VARIABLES ================*/
+/*============================================================================
+  Grid Breakpoints and Class Names
+    - Do not change the variable names
+==============================================================================*/
+$grid-medium: 750px;
+$grid-large: 990px;
+$grid-widescreen: 1400px;
+$grid-gutter: 30px;
+$grid-gutter-mobile: 22px;
+
+$small: 'small';
+$medium: 'medium';
+$medium-down: 'medium-down';
+$medium-up: 'medium-up';
+$large: 'large';
+$large-down: 'large-down';
+$large-up: 'large-up';
+$widescreen: 'widescreen';
+
+/*============================================================================
+  Generate breakpoint-specific column widths and push classes
+    - Default column widths: $grid-breakpoint-has-widths: ($small, $medium-up);
+    - Default is no push classes
+==============================================================================*/
+$grid-breakpoint-has-widths: ($small, $medium-up);
+$grid-breakpoint-has-push: ($small, $medium-up);
+
+/*============================================================================
+  #Grid
+==============================================================================*/
+
+// The `$grid-breakpoints` list is used to build our media queries.
+// You can use these in the media-query mixin.
+$grid-breakpoints: (
+  $small '(max-width: #{$grid-medium - 1})',
+  $medium '(min-width: #{$grid-medium}) and (max-width: #{$grid-large - 1})',
+  $medium-down '(max-width: #{$grid-large - 1})',
+  $medium-up '(min-width: #{$grid-medium})',
+  $large '(min-width: #{$grid-large}) and (max-width: #{$grid-widescreen - 1})',
+  $large-down '(max-width: #{$grid-widescreen - 1})',
+  $large-up '(min-width: #{$grid-large})',
+  $widescreen '(min-width: #{$grid-widescreen})'
+);
+
+
+@mixin border-radius ($radius: 4px) {
+	border-radius			: $radius;
+	-moz-border-radius		: $radius;
+	-webkit-border-radius	: $radius;
+}
+@mixin border-radius-all ($topleft: 4px, $topright: 4px, $bottomright: 4px, $bottomleft: 4px) {
+	border-radius			: $topleft $topright $bottomright $bottomleft;
+	-moz-border-radius		: $topleft $topright $bottomright $bottomleft;
+	-ms-border-radius		: $topleft $topright $bottomright $bottomleft;
+	-o-border-radius		: $topleft $topright $bottomright $bottomleft;
+	-webkit-border-radius	: $topleft $topright $bottomright $bottomleft;
+}
+
+@mixin opacity ($opacity: 0.5) {
+	$ieOpacity			: $opacity * 100;
+	opacity				: $opacity;
+	-moz-opacity		: $opacity;
+	-webkit-opacity		: $opacity;
+	-ms-filter			: progid:DXImageTransform.Microsoft.Alpha(opacity=#{$ieOpacity}); /* IE 8 */
+	filter				: alpha(opacity = #{$ieOpacity}); /* IE 5-7 */
+}
+
+@mixin background-alpha($color, $alpha) {
+	$acolor			: hsla(hue($color), saturation($color), lightness($color), $alpha);
+	$iecolor 		: argb($acolor);
+
+	background-color	: $color; /* fallback color */
+	background-color	: $acolor;
+
+	/* IE */
+	background-color	: transparent\9;
+	filter				: progid:DXImageTransform.Microsoft.gradient(startColorstr= #{$iecolor}, endColorstr= #{$iecolor});
+	zoom:1; 
+}
+
+@mixin box-shadow ($x-size:0px, $y-size:12px, $blur:26px, $color: $black-shadow, $spread:-5px) {
+	box-shadow			: $x-size $y-size $blur $spread $color;
+	-moz-box-shadow		: $x-size $y-size $blur $spread $color;
+	-webkit-box-shadow	: $x-size $y-size $blur $spread $color;
+}
+@mixin box-shadow-inset ($x-size: 10px, $y-size: 10px, $blur: 5px, $color: $black, $spread:0) {
+	box-shadow			: inset $x-size $y-size $blur $spread $color;
+	-moz-box-shadow		: inset $x-size $y-size $blur $spread $color;
+	-webkit-box-shadow	: inset $x-size $y-size $blur $spread $color;
+}
+
+@mixin gradient-vertical ($firstColor: #FFF, $secondColor: #DDD) {
+	background	: $firstColor; /* Fallback solid color for old browsers */
+	background	: linear-gradient(to bottom, $firstColor 0%, $secondColor 100%); /* W3C */
+	background	: -moz-linear-gradient(top, $firstColor 0%, $secondColor 100%); /* FF 3.6+ */
+	background	: -ms-linear-gradient(top, $firstColor 0%, $secondColor 100%); /* IE 10+ */
+	background	: -o-linear-gradient(top, $firstColor 0%, $secondColor 100%); /* Opera 11.10+ */
+	background	: -webkit-linear-gradient(top, $firstColor 0%,$secondColor 100%); /* Chrome 10+, Safari 5.1+ */
+	background	: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$firstColor), color-stop(100%,$secondColor)); /* Chrome, Safari 4+ */
+	filter		: progid:DXImageTransform.Microsoft.gradient(startColorstr= '#{$firstColor}', endColorstr= '#{$secondColor}', GradientType=0); /* IE 6-9 */
+}
+
+@mixin gradient-horizontal ($firstColor: #FFF, $secondColor: #DDD) {
+	background	: $firstColor; /* Fallback solid color for old browsers */
+	background	: linear-gradient(to right, $firstColor 0%, $secondColor 100%); /* W3C */
+	background	: -moz-linear-gradient(left,  $firstColor 0%, $secondColor 100%); /* FF 3.6+ */
+	background	: -ms-linear-gradient(left, $firstColor 0%, $secondColor 100%); /* IE 10+ */
+	background	: -o-linear-gradient(left, $firstColor 0%, $secondColor 100%); /* Opera 11.10+ */
+	background	: -webkit-linear-gradient(left,  $firstColor 0%,$secondColor 100%); /* Chrome 10+, Safari 5.1+ */
+	background	: -webkit-gradient(linear, left top, right top, color-stop(0%,$firstColor), color-stop(100%,$secondColor)); /* Chrome, Safari 4+ */
+	filter		: progid:DXImageTransform.Microsoft.gradient(startColorstr= '#{$firstColor}', endColorstr= '#{$secondColor}', GradientType=1); /* IE 6-9 */
+}
+
+@mixin transition ($type:all, $time:0.2s, $ease:ease) {
+    transition			: $type $time $ease;
+    -moz-transition		: $type $time $ease;
+    -webkit-transition	: $type $time $ease;
+    -o-transition		: $type $time $ease;
+}
+
+@mixin animation ($name, $duration: 300ms, $delay: 0, $ease: ease) {
+	-moz-animation		: $name, $duration, $delay, $ease;
+	-ms-animation		: $name, $duration, $delay, $ease;
+	-webkit-animation	: $name, $duration, $delay, $ease;
+}
+
+@mixin transform ($deg) {
+	transform			: $deg;
+	-moz-transform		: $deg;
+	-ms-transform		: $deg;
+	-o-transform		: $deg;
+	-webkit-transform	: $deg;
+}
+
+@mixin scale ($multiplier) {
+	transform			: scale($multiplier);
+	-moz-transform		: scale($multiplier);
+	-ms-transform		: scale($multiplier);
+	-o-transform		: scale($multiplier);
+	-webkit-transform	: scale($multiplier);
+}
+
+@mixin rotate ($deg) {
+	-moz-transform		: rotate($deg);
+	-ms-transform		: rotate($deg);
+	-o-transform		: rotate($deg);
+	-webkit-transform	: rotate($deg);
+}
+
+@mixin skew ($deg, $deg2) {
+	transform			: skew($deg, $deg2);
+	-moz-transform		: skew($deg, $deg2);
+	-ms-transform		: skew($deg, $deg2);
+	-o-transform		: skew($deg, $deg2);
+	-webkit-transform	: skew($deg, $deg2);
+}
+
+@mixin font($fontName) {
+	@font-face	{
+	    font-family: "#{$fontName}";
+		src: url("fonts/#{$fontName}/#{$fontName}.eot");
+		src: url("fonts/#{$fontName}/#{$fontName}.eot?#iefix") format("embedded-opentype"),
+		     url("fonts/#{$fontName}/#{$fontName}.woff") format("woff"),
+		     url("fonts/#{$fontName}/#{$fontName}.ttf") format("truetype"),
+		     url("fonts/#{$fontName}/#{$fontName}.svg#svgFontName") format("svg");
+	}
+}

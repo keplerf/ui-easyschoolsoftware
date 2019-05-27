@@ -1,0 +1,53 @@
+$color-primary : #c40101;
+$color-secundary : #363131;
+$color-light-grey: #d1d3d4;
+
+$max-width-mobile: 599px;
+$border-radius-base:        0px !default;
+$border-radius-large:       0px !default;
+$border-radius-small:       0px !default;
+
+$font-base: 14px;
+
+
+
+/*================ Z-Index ================*/
+$z-index-content : 5;
+$z-index-dropdown : 7;
+$z-index-sub-nav: 8;
+$z-index-drawer: 9;
+$z-index-announcement-bar: 10;
+$z-index-skip-to-content: 10000; // really high to be safe of app markup
+
+$grid-gutter-width: 30px;
+
+
+
+$color-white: #ffffff; //white
+$color-black: #333333; //black
+$color-slate: #414A52; //body font
+$color-light-slate: #5E6265;
+$color-light-grey: #F4F6F9; //light section
+$color-dark-grey: #8A9097;
+$color-med-grey: #a5a5a5;
+$color-teal: #7AE2DE; //cta
+$color-blue: #2badf2;
+$color-dark-teal: #71D5D2; //cta-hover
+$color-porcelain: #E5E7E9; //keylines
+$color-link: #037DDD; //keylines
+$grey: #cacaca;
+$grey-light: #f2f2f2;
+$forms-grey: #A2A3A9;
+$forms-dark: #262626;
+$black: #121212;
+$black-shadow:rgba(17, 17, 17, 0.28);
+
+
+
+$color-link: #037DDD;
+$color-error: #EE423C;
+$color-contrast: #FF5D00;
+$color-warn: $color-contrast;
+$color-ok: #3AD24E;
+$color-warging: #EBF7AC;
+

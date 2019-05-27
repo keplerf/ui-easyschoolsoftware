@@ -1,0 +1,10 @@
+@import 'reset';
+@import 'partials/variables';
+@import 'partials/mixins';
+
+
+@import 'mobileMenuPanel';
+
+body{
+    background: gainsboro;
+}
